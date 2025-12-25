@@ -38,3 +38,27 @@ Character-level RNN built on top of NumPy and trained on a dataset of Stack Over
    ```bash
    python3 rnn.py
    ```
+
+## Usage Guide
+
+### What to Expect
+- **Loss**: Starts high (~100+) and should decrease to ~50 over time.
+- **Samples**: 
+    - At start: Random garbage (`jK@!s`).
+    - ~1,000 iters: Structure emerges (`The i a te`).
+    - ~100,000 iters: Words and sentence structure appear.
+    - ~1M iters: Coherent text (depends on dataset size).
+
+### Hyperparameters (in `rnn.py`)
+- `hidden_size`: Number of neurons. Bigger = smarter but slower to train.
+    - *Small*: 100
+    - *Large*: 512+
+- `seq_length`: How many steps to unroll. Longer = better memory of context (e.g. closing parenthesis), but harder to train.
+    - *Standard*: 25
+- `learning_rate`: How fast it learns.
+    - *High*: 0.1 (Fast, but unstable)
+    - *Low*: 0.001 (Slow, but precise)
+
+### Outputs
+- **loss_history.csv**: Tracks loss over time. Plot this to see your learning curve!
+- **rnn_checkpoint.pkl**: Saves the model so you can resume training later.
