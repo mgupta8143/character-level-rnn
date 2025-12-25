@@ -19,7 +19,7 @@ Character-level RNN built on top of NumPy and trained on a dataset of Stack Over
    ```
 
 2. **Data**
-   The repository comes with a sample `data/input.txt` (Tiny Shakespeare) so you can run the model immediately.
+   The repository comes with a sample `data/input.txt` (Hinduism Stack Exchange) so you can run the model immediately.
    
    **Using Stack Overflow Data:**
    If you want to train on Stack Overflow data:
