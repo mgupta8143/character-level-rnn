@@ -129,7 +129,7 @@ while True:
     if n % 100 == 0:
         print(f'iter {n}, loss: {loss[0]}')
         
-        with open('loss_history.csv', 'a') as f:
+        with open('outputs/loss_history.csv', 'a') as f:
             f.write(f'{n},{loss[0]}\n')
         
     if n % 1000 == 0:
@@ -137,7 +137,10 @@ while True:
         txt = ''.join(ix_to_char[ix] for ix in sample_ix)
         print('----\n %s \n----' % (txt, ))
 
-        with open('rnn_checkpoint.pkl', 'wb') as f:
+        with open('outputs/samples.txt', 'a') as f:
+            f.write(f'Sample {n}:\n{txt}\n')
+
+        with open('outputs/rnn_checkpoint.pkl', 'wb') as f:
             pickle.dump(rnn, f)
         print("(Checkpoint saved to rnn_checkpoint.pkl)")
         
