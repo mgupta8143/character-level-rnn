@@ -2,15 +2,6 @@ import numpy as np
 import pickle
 import os
 
-"""
-6. Build out the training loop  [NOT STARTED]
-6. Write a post detailing:
-    - The math behind the RNN 
-    - The code behind the RNN 
-    - Patterns emergent behaviors etc.
-    - Interesting findings
-"""
-
 # Load the Stack overflow dataset and create mappings
 def load_data():
     data = open('data/input.txt', 'r').read() 
@@ -27,12 +18,11 @@ print("data has %d characters, %d unique." % (data_size, vocab_size))
 # Create the model class
 class RNN: 
     def __init__(self, hidden_size, input_size, output_size):
-        # Initialize model parameters
-        self.Wxh = np.random.randn(hidden_size, input_size) * 0.01 # Input to hidden
-        self.Whh = np.random.randn(hidden_size, hidden_size) * 0.01 # Hidden to hidden
-        self.Why = np.random.randn(output_size, hidden_size) * 0.01 # Hidden to output
-        self.bh = np.zeros((hidden_size, 1)) # Hidden bias
-        self.by = np.zeros((output_size, 1)) # Output bias
+        self.Wxh = np.random.randn(hidden_size, input_size) * 0.01 
+        self.Whh = np.random.randn(hidden_size, hidden_size) * 0.01 
+        self.Why = np.random.randn(output_size, hidden_size) * 0.01 
+        self.bh = np.zeros((hidden_size, 1)) 
+        self.by = np.zeros((output_size, 1)) 
         self.input_size = input_size
         self.hidden_size = hidden_size
         self.output_size = output_size
@@ -62,27 +52,21 @@ class RNN:
             xs = np.zeros((self.input_size, 1))
             xs[input_sequence[t]] = 1
             
-            # Output Error
             dy = np.copy(ps[t])
             dy[target_sequence[t]] -= 1 
             
-            # Gradients for Output Weights
             dWhy += np.dot(dy, hs[t].T)
             dby += dy
             
-            # Backpropagate into hidden state
             dh = np.dot(self.Why.T, dy) + dhnext 
             dhraw = (1 - hs[t] * hs[t]) * dh 
             
-            # Gradients for Hidden Weights
             dbh += dhraw
             dWxh += np.dot(dhraw, xs.T)
             dWhh += np.dot(dhraw, hs[t-1].T)
             
-            # Save derivative for next step 
             dhnext = np.dot(self.Whh.T, dhraw)
             
-        # Clip gradients to prevent "exploding gradients"
         for dparam in [dWxh, dWhh, dWhy, dbh, dby]:
             np.clip(dparam, -5, 5, out=dparam)
             
@@ -103,7 +87,6 @@ class RNN:
             y = np.dot(self.Why, h) + self.by
             p = np.exp(y) / np.sum(np.exp(y))
             
-            # Use np.random.choice to sample from distribution
             ix = np.random.choice(range(self.output_size), p=p.ravel())
             
             x = np.zeros((self.input_size, 1))
@@ -143,11 +126,9 @@ while True:
         mem += dparam * dparam
         param += -learning_rate * dparam / np.sqrt(mem + 1e-8)
 
-    # 5. Logging & Sampling
     if n % 100 == 0:
-        print(f'iter {n}, loss: {loss[0]}') # print progress
+        print(f'iter {n}, loss: {loss[0]}')
         
-        # Log loss to file
         with open('loss_history.csv', 'a') as f:
             f.write(f'{n},{loss[0]}\n')
         
@@ -156,11 +137,10 @@ while True:
         txt = ''.join(ix_to_char[ix] for ix in sample_ix)
         print('----\n %s \n----' % (txt, ))
 
-        # Save model checkpoint
         with open('rnn_checkpoint.pkl', 'wb') as f:
             pickle.dump(rnn, f)
         print("(Checkpoint saved to rnn_checkpoint.pkl)")
         
-    p += seq_length # move data pointer
-    n += 1 # iteration counter
-    h_prev = hs[len(inputs)-1] # keep hidden state for next batch
+    p += seq_length     
+    n += 1 
+    h_prev = hs[len(inputs)-1] 
