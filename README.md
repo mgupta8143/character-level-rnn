@@ -15,15 +15,17 @@ Character-level RNN built on top of NumPy and trained on a dataset of Stack Over
    ```
 
 2. **Data**
-   The repository comes with a sample `input.txt` (Tiny Shakespeare) so you can run the model immediately.
+   The repository comes with a sample `data/input.txt` (Tiny Shakespeare) so you can run the model immediately.
    
    **Using Stack Overflow Data:**
    If you want to train on Stack Overflow data:
    1. Download the Stack Exchange dump (e.g., `Posts.xml`).
-   2. Place `Posts.xml` in this directory.
-   3. Run the parsing script (not committed) to regenerate `input.txt`:
+   2. Place `Posts.xml` in the `data/` directory.
+   3. Run the parsing script:
       ```bash
-      python parse_so.py
+      cd data
+      python parse_stackoverflow.py
+      cd ..
       ```
 
 3. **Run**

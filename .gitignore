@@ -3,5 +3,4 @@ __pycache__/
 .DS_Store
 .venv/
 env/
-parse_so.py
-Posts.xml
+data/Posts.xml
