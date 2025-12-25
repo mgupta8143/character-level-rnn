@@ -2,9 +2,10 @@ import numpy as np
 
 """
 1. Choose a dataset of characters [DONE]
-2. Build a test and training dataset in the correct split [IN PROGRESS]
-3. Build out the forward pass logic [NOT STARTED]
-4. Build out the backporagagtion logic [NOT STARTED]
+2. Build the logic to load the dataset [IN PROGRESS]
+3. Build a test and training dataset in the correct split [IN PROGRESS]
+4. Build out the forward pass logic [NOT STARTED]
+5. Build out the backporagagtion logic [NOT STARTED]
 """
 
 Wxx

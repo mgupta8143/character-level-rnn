@@ -4,6 +4,10 @@ Inspired by Karpathy's [blog post](http://karpathy.github.io/2015/05/21/rnn-effe
 
 Character-level RNN built on top of NumPy and trained on a dataset of Stack Overflow questions and answers.
 
+**Requirements**:
+- Python 3.8+
+- NumPy >= 1.24.0
+
 ## Setup
 
 1. **Environment Setup**
@@ -19,16 +23,18 @@ Character-level RNN built on top of NumPy and trained on a dataset of Stack Over
    
    **Using Stack Overflow Data:**
    If you want to train on Stack Overflow data:
-   1. Download the Stack Exchange dump (e.g., `Posts.xml`).
-   2. Place `Posts.xml` in the `data/` directory.
-   3. Run the parsing script:
+   1. **Download Data**: Go to the [Stack Exchange Data Dump](https://archive.org/details/stackexchange). Look for `stackoverflow.com-Posts.7z` (warning: it's large, ~100GB). You can also use smaller dumps like `datascience.stackexchange.com.7z` for testing.
+   2. **Extract**: unzip/7z extract to get `Posts.xml`.
+   3. **Place**: Move `Posts.xml` into the `data/` directory of this repo.
+   4. **Parse**:
       ```bash
       cd data
-      python parse_stackoverflow.py
+      python3 parse_stackoverflow.py
+      # This generates input.txt
       cd ..
       ```
 
 3. **Run**
    ```bash
-   python rnn.py
+   python3 rnn.py
    ```
